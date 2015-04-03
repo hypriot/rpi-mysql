@@ -15,5 +15,4 @@ test:
 	docker run --rm $(DOCKER_IMAGE_TAGNAME) /bin/echo "Success."
 
 version:
-	docker run --rm $(DOCKER_IMAGE_TAGNAME) node --version
-	docker run --rm $(DOCKER_IMAGE_TAGNAME) npm --version
+	docker run --rm $(DOCKER_IMAGE_TAGNAME) mysql --version
