@@ -17,7 +17,7 @@ if [ "$1" = 'mysqld' ]; then
 		fi
 		
 		echo 'Initializing database'
-		mysqld --initialize-insecure=on --datadir="$DATADIR"
+    mysql_install_db --datadir="$DATADIR"
 		echo 'Database initialized'
 		
 		# These statements _must_ be on individual lines, and _must_ end with
