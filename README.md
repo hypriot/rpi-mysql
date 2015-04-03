@@ -1,6 +1,6 @@
 [![dockeri.co](http://dockeri.co/image/hypriot/rpi-mysql)](https://registry.hub.docker.com/u/hypriot/rpi-mysql/)
 
-Raspberry Pi compatible Docker base image with [Mysql](https://www.mysql.com/). 
+Raspberry Pi compatible Docker base image with [MySQL](https://www.mysql.com/).  
 It is based on the official [Mysql Docker Image](https://registry.hub.docker.com/_/mysql/) ported to the ARM based Raspbery Pi.
 
 ## What is MySQL?
