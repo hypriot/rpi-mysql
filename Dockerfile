@@ -16,7 +16,6 @@ ENV MYSQL_VERSION 5.5
 
 # the "/var/lib/mysql" stuff here is because the mysql-server postinst doesn't have an explicit way to disable the mysql_install_db codepath besides having a database already "configured" (ie, stuff in /var/lib/mysql/mysql)
 # also, we set debconf keys to make APT a little quieter
-mysql-server mysql-server/root_password password
 RUN { \
 		echo mysql-server mysql-server/data-dir select ''; \
 		echo mysql-server mysql-server/root-pass password ''; \
