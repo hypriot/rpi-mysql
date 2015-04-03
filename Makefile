@@ -16,3 +16,8 @@ test:
 
 version:
 	docker run --rm $(DOCKER_IMAGE_TAGNAME) mysql --version
+
+rmi:
+	docker rmi -f $(DOCKER_IMAGE_TAGNAME)
+
+rebuild: rmi build
