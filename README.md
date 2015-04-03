@@ -1,4 +1,3 @@
-# rpi-mysql
 [![dockeri.co](http://dockeri.co/image/hypriot/rpi-mysql)](https://registry.hub.docker.com/u/hypriot/rpi-mysql/)
 
 Raspberry Pi compatible Docker base image with [Mysql](https://www.mysql.com/). 
