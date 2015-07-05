@@ -1,23 +1,46 @@
-DOCKER_IMAGE_VERSION=5.5
-DOCKER_IMAGE_NAME=hypriot/rpi-mysql
-DOCKER_IMAGE_TAGNAME=$(DOCKER_IMAGE_NAME):$(DOCKER_IMAGE_VERSION)
+IMAGENAME := $(shell basename `git rev-parse --show-toplevel`)
+SHA := $(shell git rev-parse --short HEAD)
+#targz_file := $(shell cat FILEPATH)
+timestamp := $(shell date +"%Y%m%d%H%M")
+VERSION :=$(shell cat VERSION)        	
 
-default: build
+default: dockerbuild push
 
-build:
-	docker build -t $(DOCKER_IMAGE_TAGNAME) .
-	docker tag -f $(DOCKER_IMAGE_TAGNAME) $(DOCKER_IMAGE_NAME):latest
+docker: loadS3_and_extract dockerbuild push
+
+loadS3_and_extract:
+	aws s3 cp s3://$(AWS_BUCKET)/$(targz_file) ./binary.tar.gz
+	mkdir content/
+	tar xzf binary.tar.gz -C content/
+	ls -la content/
+
+dockerbuild:
+	docker rmi -f $(NAMESPACE)/$(IMAGENAME):bak || true
+	docker tag $(NAMESPACE)/$(IMAGENAME) $(NAMESPACE)/$(IMAGENAME):bak || true
+	docker rmi -f $(NAMESPACE)/$(IMAGENAME) || true
+	docker build -t $(NAMESPACE)/$(IMAGENAME) .
+
+testimg:
+	docker rm -f new-$(IMAGENAME) || true
+	docker run -d --name new-$(IMAGENAME) $(NAMESPACE)/$(IMAGENAME):latest
+	docker inspect -f '{{.NetworkSettings.IPAddress}}' new-$(IMAGENAME)
+	docker logs -f new-$(IMAGENAME)
 
 push:
-	docker push $(DOCKER_IMAGE_NAME)
-
-test:
-	docker run --rm $(DOCKER_IMAGE_TAGNAME) /bin/echo "Success."
-
-version:
-	docker run --rm $(DOCKER_IMAGE_TAGNAME) mysql --version
-
-rmi:
-	docker rmi -f $(DOCKER_IMAGE_TAGNAME)
-
-rebuild: rmi build
+	# push VERSION
+	docker tag -f $(NAMESPACE)/$(IMAGENAME):latest $(REGISTRY_URL)/$(NAMESPACE)/$(IMAGENAME):$(VERSION)
+	docker push $(REGISTRY_URL)/$(NAMESPACE)/$(IMAGENAME):$(VERSION)
+	docker rmi $(REGISTRY_URL)/$(NAMESPACE)/$(IMAGENAME):$(VERSION) || true
+	# push commit SHA
+	docker tag -f $(NAMESPACE)/$(IMAGENAME):latest $(REGISTRY_URL)/$(NAMESPACE)/$(IMAGENAME):$(SHA)
+	docker push $(REGISTRY_URL)/$(NAMESPACE)/$(IMAGENAME):$(SHA)
+	docker rmi $(REGISTRY_URL)/$(NAMESPACE)/$(IMAGENAME):$(SHA) || true
+	# push timestamp
+	docker tag -f $(NAMESPACE)/$(IMAGENAME):latest $(REGISTRY_URL)/$(NAMESPACE)/$(IMAGENAME):$(timestamp)
+	docker push $(REGISTRY_URL)/$(NAMESPACE)/$(IMAGENAME):$(timestamp)
+	docker rmi $(REGISTRY_URL)/$(NAMESPACE)/$(IMAGENAME):$(timestamp) || true
+	# push latest
+	docker tag -f $(NAMESPACE)/$(IMAGENAME):latest $(REGISTRY_URL)/$(NAMESPACE)/$(IMAGENAME):latest
+	docker push $(REGISTRY_URL)/$(NAMESPACE)/$(IMAGENAME):latest
+	docker rmi $(REGISTRY_URL)/$(NAMESPACE)/$(IMAGENAME):latest || true
+                        	
