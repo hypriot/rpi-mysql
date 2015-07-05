@@ -3,7 +3,7 @@ docker:
   volumes:
     - /var/run/docker.sock:/var/run/docker.sock
 git:
-  path: github.com/hypriot/rpi-alpine-bash
+  path: github.com/hypriot/rpi-mysql
 script:
   - echo "+++++ start docker daemon +++++"
   - wrapdocker &
