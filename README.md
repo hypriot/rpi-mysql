@@ -15,7 +15,7 @@ For more information and related downloads for MySQL Server and other MySQL prod
 - [Source Project Page](https://github.com/hypriot)
 - [Source Repository](https://github.com/hypriot/rpi-mysql)
 - [Dockerfile](https://github.com/hypriot/rpi-mysql/blob/master/Dockerfile)
-- [DockerHub] (https://registry.hub.docker.com/u/hypriot/rpi-mysql/)
+- [DockerHub] (https://hub.docker.com/u/hypriot/rpi-mysql/)
 
 ## Build the Docker Image
 Run all the commands from within the project root directory.
