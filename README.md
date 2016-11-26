@@ -1,4 +1,4 @@
-# rpi-mysql
+# rpi-mysql [![Build Status](https://travis-ci.org/hypriot/rpi-mysql.svg?branch=master)](https://travis-ci.org/hypriot/rpi-mysql)
 
 Raspberry Pi compatible Docker base image with [MySQL](https://www.mysql.com/).
 It is based on the official [Mysql Docker Image](https://registry.hub.docker.com/_/mysql/) ported to the ARM based Raspbery Pi.
