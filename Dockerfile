@@ -2,8 +2,6 @@
 FROM resin/rpi-raspbian:wheezy
 MAINTAINER Govinda fichtner <govinda@hypriot.com>
 
-RUN [ "cross-build-start" ]
-
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
 RUN groupadd -r mysql && useradd -r -g mysql mysql
 
@@ -29,8 +27,6 @@ RUN { \
 
 # comment out a few problematic configuration values
 RUN sed -Ei 's/^(bind-address|log)/#&/' /etc/mysql/my.cnf
-
-RUN [ "cross-build-end" ]
 
 VOLUME /var/lib/mysql
 
