@@ -11,7 +11,7 @@ script:
 # build image
 - docker build -t hypriot/rpi-mysql .
 # test image
-- docker run hypriot/rpi-mysql version
+- docker run hypriot/rpi-mysql mysql --version
 # push image
 - >
   if [ "$TRAVIS_BRANCH" == "master" ]; then
