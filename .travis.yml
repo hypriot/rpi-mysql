@@ -4,9 +4,6 @@ services:
 language: bash
 script:
 # prepare qemu
-- sudo curl --fail -L https://github.com/hypriot/rpi-alpine-qemu/raw/master/qemu-arm-static -o /usr/bin/qemu-arm-static
-- sudo chmod +x /usr/bin/qemu-arm-static
-- sudo curl --fail -L https://github.com/hypriot/rpi-alpine-qemu/raw/master/qemu-arm -o /usr/share/binfmts/qemu-arm
 - docker run --rm --privileged multiarch/qemu-user-static:register --reset
 # build image
 - docker build -t hypriot/rpi-mysql .
