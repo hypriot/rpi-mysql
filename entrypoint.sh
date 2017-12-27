@@ -46,6 +46,15 @@ if [ "$1" = 'mysqld' ]; then
 		
 		echo 'FLUSH PRIVILEGES ;' >> "$tempSqlFile"
 		
+		for f in /docker-entrypoint-initdb.d/*; do
+			case "$file" in
+				*.sql)    echo "$0: copy $file into init-file"; cat $file >> $tempSqlFile ;;
+				*.sql.gz) echo "$0: copy $file into init-file"; gunzip -c $file >> $tempSqlFile ;;
+				*)        echo "$0: ignoring $file" ;;
+			esac
+			echo
+		done
+		
 		set -- "$@" --init-file="$tempSqlFile"
 	fi
 	
