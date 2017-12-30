@@ -1,21 +1,13 @@
-# rpi-mysql [![Build Status](https://travis-ci.org/hypriot/rpi-mysql.svg?branch=master)](https://travis-ci.org/hypriot/rpi-mysql)
 
-Raspberry Pi compatible Docker base image with [MySQL](https://www.mysql.com/).
-It is based on the official [Mysql Docker Image](https://registry.hub.docker.com/_/mysql/) ported to the ARM based Raspbery Pi.
 
-## What is MySQL?
-
-![logo](https://raw.githubusercontent.com/docker-library/docs/master/mysql/logo.png)
-
-MySQL is the world's most popular open source database. With its proven performance, reliability and ease-of-use, MySQL has become the leading database choice for web-based applications, covering the entire range from personal projects and websites, via e-commerce and information services, all the way to high profile web properties including Facebook, Twitter, YouTube, Yahoo! and many more.
-
-For more information and related downloads for MySQL Server and other MySQL products, please visit [www.mysql.com](http://www.mysql.com).
+# rpi-mariadb
+Raspberry Pi compatible Docker base image with [MariaDB].
+It is based on the official [RPi MySQL Docker Image](https://registry.hub.docker.com/_/mysql/).
 
 ## Build Details
-- [Source Project Page](https://github.com/hypriot)
-- [Source Repository](https://github.com/hypriot/rpi-mysql)
-- [Dockerfile](https://github.com/hypriot/rpi-mysql/blob/master/Dockerfile)
-- [DockerHub] (https://registry.hub.docker.com/u/hypriot/rpi-mysql/)
+- [Source Project Page](https://github.com/Piggeldi2013)
+- [Source Repository](https://github.com/Piggeldi2013/rpi-mariadb)
+- [Dockerfile](https://github.com/Piggeldi2013/rpi-mariadb/blob/master/Dockerfile)
 
 ## Build the Docker Image
 Run all the commands from within the project root directory.
