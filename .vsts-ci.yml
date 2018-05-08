@@ -1,0 +1,5 @@
+steps:
+- script: |
+    docker run --rm --privileged multiarch/qemu-user-static:register --reset
+    docker build -t hypriot/rpi-mysql .
+    docker run hypriot/rpi-mysql mysql --version
