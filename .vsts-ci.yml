@@ -1,5 +1,11 @@
+queue: "Hosted Linux Preview"
+
 steps:
-- script: |
-    docker run --rm --privileged multiarch/qemu-user-static:register --reset
-    docker build -t hypriot/rpi-mysql .
-    docker run hypriot/rpi-mysql mysql --version
+- script: docker run --rm --privileged multiarch/qemu-user-static:register --reset
+  name: RegisterQemu
+
+- script: docker build -t hypriot/rpi-mysql .
+  name: BuildContainer
+
+- script: docker run hypriot/rpi-mysql mysql --version
+  name: TestContainer
