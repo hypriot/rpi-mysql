@@ -3,18 +3,30 @@ services:
 - docker
 language: bash
 script:
+- |
+  echo "Updating Docker to have docker manifest command"
+  curl https://get.docker.com | sh
+  echo "Enabling docker client experimental features"
+  mkdir -p ~/.docker
+  echo '{ "experimental": "enabled" }' > ~/.docker/config.json
+  docker version
 # prepare qemu
 - docker run --rm --privileged multiarch/qemu-user-static:register --reset
 # build image
-- docker build -t hypriot/rpi-mysql .
+- docker build -t rpi-mysql .
 # test image
-- docker run hypriot/rpi-mysql mysql --version
+- docker run rpi-mysql mysql --version
 # push image
 - >
   if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
     docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
     TAG=$(grep "ENV MYSQL_VERSION" Dockerfile | awk 'NF>1{print $NF}')
-    docker tag hypriot/rpi-mysql hypriot/rpi-mysql:$TAG
-    docker push hypriot/rpi-mysql:$TAG
-    docker push hypriot/rpi-mysql
+    docker tag rpi-mysql hypriot/rpi-mysql:arm-$TAG
+    docker push hypriot/rpi-mysql:arm-$TAG
+    docker manifest create hypriot/rpi-mysql:$TAG hypriot/rpi-mysql:arm-$TAG
+    docker manifest annotate hypriot/rpi-mysql:$TAG hypriot/rpi-mysql:arm-$TAG --os linux --arch arm --variant v6
+    docker manifest push hypriot/rpi-mysql:$TAG
+    docker manifest create hypriot/rpi-mysql hypriot/rpi-mysql:arm-$TAG
+    docker manifest annotate hypriot/rpi-mysql hypriot/rpi-mysql:arm-$TAG --os linux --arch arm --variant v6
+    docker manifest push hypriot/rpi-mysql
   fi
