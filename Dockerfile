@@ -1,6 +1,5 @@
 # Pull base image
-FROM resin/rpi-raspbian:wheezy
-MAINTAINER Govinda fichtner <govinda@hypriot.com>
+FROM resin/rpi-raspbian:stretch
 
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
 RUN groupadd -r mysql && useradd -r -g mysql mysql
