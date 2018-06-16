@@ -3,7 +3,7 @@ services:
 - docker
 language: bash
 script:
-- >
+- |
   echo "Enabling docker client experimental features"
   mkdir -p ~/.docker
   echo '{ "experimental": "enabled" }' > ~/.docker/config.json
