@@ -13,7 +13,7 @@ script:
 # prepare qemu
 - docker run --rm --privileged multiarch/qemu-user-static:register --reset
 # build image
-- docker build -t rpi-mysql .
+- docker build --build-arg distro=wheezy -t rpi-mysql .
 # test image
 - docker run rpi-mysql mysql --version
 # push image
