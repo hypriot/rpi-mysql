@@ -4,6 +4,8 @@ services:
 language: bash
 script:
 - |
+  echo "Updating Docker to have docker manifest command"
+  curl https://get.docker.com | sh
   echo "Enabling docker client experimental features"
   mkdir -p ~/.docker
   echo '{ "experimental": "enabled" }' > ~/.docker/config.json
